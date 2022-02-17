@@ -19,9 +19,10 @@ FROM {{ source('public','pridemobility_tracking_160_new') }}
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
-  where timestamp > (select max(timestamp) from {{ this }})
+  where timestamps > (select max(timestamps) from {{ this }})
 
-{% endif %}),
+{% endif %}
+group by 1),
 cte1 as(select ceiling(avg(Count_Wt)) as Count_Wt,
        ceiling(avg(Count_Wip)) as Count_Wip,
        ceiling(avg(Count_Person)) as Count_Person,
