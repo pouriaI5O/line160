@@ -3,9 +3,7 @@
         materialized='incremental'
     )
 }}
-with cte as ({{ config(materialized='ephemeral') }}
----source table for Status tabels(line160)----
----Extract timestamps info(date,hour,minute asn second) and rename other columns
+with cte as (
 select idline160wip as Id_Wip,
        idline160wt as Id_Wt,
        EXTRACT(HOUR FROM timestamp) AS Hour,
