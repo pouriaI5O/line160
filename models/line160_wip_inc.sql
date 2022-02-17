@@ -18,7 +18,8 @@ FROM {{ source('public','pridemobility_tracking_160_new') }}
   -- this filter will only be applied on an incremental run
   where timestamp > (select max(timestamp) from {{ this }})
 
-{% endif %}),
+{% endif %}
+group by 1),
 cte1 as(select*,
         cast(CONCAT(Date, ' '+CAST(hour AS VARCHAR(2))+':'+CAST(minute AS VARCHAR(2))) as datetime)as Timestamps,
         cast(Timestamps AS time) as Time 
