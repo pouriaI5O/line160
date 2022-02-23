@@ -19,7 +19,7 @@ FROM {{ source('public','pridemobility_tracking_160_new') }}
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
-  where timestamps > (select max(timestamps) from {{ this }})
+  having timestamps > (select max(timestamps) from {{ this }})
 
 {% endif %}
 group by 1),
