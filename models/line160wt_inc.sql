@@ -15,7 +15,7 @@ FROM {{ source('public','pridemobility_tracking_160_new') }}
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
-  where timestamp > (select max(timestamp) from {{ this }})
+  having timestamp > (select max(timestamp) from {{ this }})
 
 {% endif %}),
 cte1 as(select*,
